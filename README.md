@@ -14,7 +14,9 @@ Install dependencies and build:
 <br>
 ```cargo build```
 <br>
-Run the app:
+Run an example:
 <br>
-```cargo run```
+```cargo run --example random```
+<br>
+```cargo run --example fill_full```
 <br>
