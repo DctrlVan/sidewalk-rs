@@ -9,10 +9,9 @@ use opc::*;
 pub fn random<F>(mut set_pixels: F, delay_time: u64)
     where F: FnMut(&mut [u8; 3])
 {
-    let mut stream = TcpStream::connect("192.168.1.51:7890").unwrap();
+    let stream = TcpStream::connect("192.168.1.51:7890").unwrap();
     let mut client = Client::new(stream);
     let mut pixels = vec![[0,0,0]; 1000];
-    let mut rng = rand::thread_rng();
 
     loop {
         for pixel in pixels.iter_mut() {
@@ -31,7 +30,7 @@ pub fn random<F>(mut set_pixels: F, delay_time: u64)
 pub fn fill_full<F>(mut set_pixels: F)
     where F: FnMut(&mut [u8; 3])
 {
-    let mut stream = TcpStream::connect("192.168.1.51:7890").unwrap();
+    let stream = TcpStream::connect("192.168.1.51:7890").unwrap();
     let mut client = Client::new(stream);
     let mut pixels = vec![[0,0,0]; 1000];
 
