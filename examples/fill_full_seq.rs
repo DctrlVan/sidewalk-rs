@@ -1,34 +1,12 @@
 extern crate opc;
 extern crate rand;
-
-use std::net::TcpStream;
 use std::thread;
 use std::time::Duration;
+use rand::Rng;
+use std::net::TcpStream;
 use opc::*;
 
-pub fn random<F>(mut set_pixels: F, delay_time: u64)
-    where F: FnMut(&mut [u8; 3])
-{
-    let mut stream = TcpStream::connect("192.168.1.51:7890").unwrap();
-    let mut client = Client::new(stream);
-    let mut pixels = vec![[0,0,0]; 1000];
-    let mut rng = rand::thread_rng();
-
-    loop {
-        for pixel in pixels.iter_mut() {
-            set_pixels(pixel);
-        }
-
-        let pixel_msg = Message {
-            channel: 0,
-            command: Command::SetPixelColors { pixels: pixels.clone() },
-        };
-        client.send(pixel_msg);
-        thread::sleep(Duration::from_millis(delay_time));
-    }
-}
-
-pub fn fill_full<F>(mut set_pixels: F)
+fn fill_full<F>(mut set_pixels: F)
     where F: FnMut(&mut [u8; 3])
 {
     let mut stream = TcpStream::connect("192.168.1.51:7890").unwrap();
@@ -46,7 +24,7 @@ pub fn fill_full<F>(mut set_pixels: F)
     client.send(pixel_msg);
 }
 
-pub fn fill_full_seq(pseq: &[&[u8]]) {
+fn fill_full_seq(pseq: &[&[u8]]) {
     for pat in pseq.iter() {
         fill_full(|pixel: &mut [u8; 3]| {
             pixel[0] = pat[0];
@@ -55,4 +33,17 @@ pub fn fill_full_seq(pseq: &[&[u8]]) {
         });
         thread::sleep(Duration::from_millis(1000));
     }
+}
+
+fn main() {
+    fill_full_seq(&[
+        &[120, 110, 50],
+        &[100, 90, 80],
+        &[127, 45, 89],
+        &[100, 90, 55],
+        &[60, 10, 120],
+        &[0, 100, 130],
+        &[0, 45, 89],
+        &[100, 90, 55]
+    ]);
 }
