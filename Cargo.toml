@@ -1,5 +1,5 @@
 [package]
-name = "sidewalk-rs"
+name = "sidewalk"
 version = "0.1.0"
 authors = ["Paul <paulll.lucas@gmail.com>"]
 

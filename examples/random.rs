@@ -1,8 +1,8 @@
 extern crate opc;
 extern crate rand;
-extern crate sidewalk_rs;
+extern crate sidewalk;
 use rand::Rng;
-use sidewalk_rs::*;
+use sidewalk::*;
 
 fn main() {
     random(|pixel: &mut [u8; 3]| {

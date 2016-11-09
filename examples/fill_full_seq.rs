@@ -1,8 +1,7 @@
 extern crate opc;
 extern crate rand;
-extern crate sidewalk_rs;
-use opc::*;
-use sidewalk_rs::*;
+extern crate sidewalk;
+use sidewalk::*;
 
 fn main() {
     fill_full_seq(&[
