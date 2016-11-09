@@ -20,3 +20,5 @@ Run an example:
 <br>
 ```cargo run --example fill_full```
 <br>
+```cargo run --example fill_full_seq```
+<br>
