@@ -46,13 +46,13 @@ pub fn fill_full<F>(mut set_pixels: F)
     client.send(pixel_msg);
 }
 
-pub fn fill_full_seq(pseq: &[&[u8]]) {
+pub fn fill_full_seq(pseq: &[&[u8]], delay_time: u64) {
     for pat in pseq.iter() {
         fill_full(|pixel: &mut [u8; 3]| {
             pixel[0] = pat[0];
             pixel[1] = pat[1];
             pixel[2] = pat[2];
         });
-        thread::sleep(Duration::from_millis(1000));
+        thread::sleep(Duration::from_millis(delay_time));
     }
 }
